@@ -1,0 +1,8 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Chat por salas</title><link rel="stylesheet" href="style.css"></head>
+<body><main><h1>Chat por salas</h1><p id="status" role="status">Elegí tu nombre y una sala.</p>
+<form id="join"><label id="name-label">Nombre <input id="name" required maxlength="80"></label><label>Sala <input id="room" required maxlength="40"></label><button>Ingresar</button></form>
+<section id="conversation" hidden><h2 id="room-title"></h2><label>Enviar a <select id="recipient"><option value="">Toda la sala</option></select></label>
+<ol id="messages" aria-live="polite"></ol><form id="send"><label>Mensaje <input id="message" required maxlength="1000" autocomplete="off"></label><button disabled>Enviar</button></form></section>
+<p>Los mensajes públicos se guardan en memoria hasta que la sala queda vacía. Los privados no se incluyen en el historial.</p>
+</main><script src="/socket.io/socket.io.js"></script><script src="app.js"></script></body></html>

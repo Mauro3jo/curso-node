@@ -1,0 +1,11 @@
+body { font: 1rem/1.5 system-ui,sans-serif; background: #f4f5ef; color: #172b36; margin: 0; }
+main { max-width: 800px; margin: 2rem auto; padding: 1.5rem; }
+label { display: block; margin: .75rem 0; }
+input, select, button { font: inherit; padding: .7rem; border: 1px solid #667b70; border-radius: 6px; max-width: 100%; }
+input { width: 95%; }
+button { cursor: pointer; background: #165f50; color: white; }
+button:disabled { background: #65756e; cursor: default; }
+#messages { padding: 1rem; min-height: 180px; max-height: 45vh; overflow: auto; background: white; border: 1px solid #cbd4cb; list-style: none; }
+li { padding: .6rem; overflow-wrap: anywhere; border-bottom: 1px solid #e2e7e1; }
+:focus-visible { outline: 3px solid #b15a19; outline-offset: 3px; }
+[hidden] { display: none !important; }

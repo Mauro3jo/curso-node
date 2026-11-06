@@ -21,7 +21,8 @@
     "sockets": "node ejercicios/05-sockets/server.js",
     "start": "node src/server.js",
     "test": "node --test",
-    "check": "node --check src/server.js && node --check src/queue.js && node --check public/app.js"
+    "check": "node --check src/server.js && node --check src/queue.js && node --check public/app.js",
+    "chat": "node ejercicios/06-chat/server.js"
   },
   "dependencies": {
     "bcryptjs": "3.0.3",
