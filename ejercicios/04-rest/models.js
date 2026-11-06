@@ -9,7 +9,9 @@ export function createModels(connection) {
     estado: { type: Boolean, default: true },
     google: { type: Boolean, default: false },
     googleId: { type: String, unique: true, sparse: true, select: false },
-    img: String
+    img: String,
+    imgProvider: String,
+    imgPublicId: { type: String, select: false }
   }, { toJSON: { transform(_doc, ret) { ret.uid = String(ret._id); delete ret.password; delete ret.googleId; delete ret._id; delete ret.__v; return ret; } } });
   const category = new Schema({
     nombre: { type: String, required: true, unique: true, uppercase: true, trim: true },
@@ -24,7 +26,9 @@ export function createModels(connection) {
     categoria: { type: Schema.Types.ObjectId, ref: 'Categoria', required: true },
     usuario: { type: Schema.Types.ObjectId, ref: 'Usuario', required: true },
     estado: { type: Boolean, default: true },
-    img: String
+    img: String,
+    imgProvider: String,
+    imgPublicId: { type: String, select: false }
   });
   return {
     User: connection.models.Usuario || connection.model('Usuario', schema),

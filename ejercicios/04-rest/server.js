@@ -9,6 +9,7 @@ import { Router } from 'express';
 import { createAuth } from './auth.js';
 import { catalogRoutes } from './catalog.js';
 import { googleRoutes } from './google.js';
+import { uploadRoutes, cloudinaryStorage } from './uploads.js';
 
 const port = Number(process.env.PORT || 3001);
 if (!Number.isInteger(port) || port < 1 || port > 65535) throw new Error('Puerto inválido');
@@ -24,7 +25,13 @@ const connection = await connectDatabase(uri);
 const models = createModels(connection);
 await Promise.all(Object.values(models).map(model => model.init()));
 const auth = createAuth(models, process.env.JWT_SECRET || (demo && randomBytes(32).toString('hex')));
-const routes = Router().use(auth.routes).use(userRoutes(models, auth)).use(catalogRoutes(models, auth)).use(googleRoutes(models, auth));
+let cloud;
+if (process.env.CLOUDINARY_URL) {
+  const { v2 } = await import('cloudinary');
+  v2.config(process.env.CLOUDINARY_URL);
+  cloud = cloudinaryStorage(v2);
+}
+const routes = Router().use(auth.routes).use(userRoutes(models, auth)).use(catalogRoutes(models, auth)).use(googleRoutes(models, auth)).use(uploadRoutes(models, auth, { cloud }));
 const server = createRestApp({ routes }).listen(port, '127.0.0.1', () => console.log(`API: http://127.0.0.1:${port}`));
 server.on('error', error => { console.error(error.message); process.exitCode = 1; });
 for (const signal of ['SIGINT', 'SIGTERM']) process.on(signal, () => server.close(async () => { await connection.close(); await demo?.stop(); }));

@@ -12,7 +12,7 @@ Inventario de los archivos locales revisados. No equivale al temario completo de
 | Login, JWT y roles | `curso-node-restserver-2.2.0.zip` | Implementado y probado: tokens, permisos, edición y baja lógica |
 | Categorías, productos y búsquedas | `curso-node-restserver-4.0.0.zip` | Implementado y probado contra MongoDB temporal |
 | Inicio de sesión con Google | `curso-node-restserver-4.0.0.zip` | Adaptador implementado y probado con respuestas controladas; falta login real con cliente propio |
-| Archivos locales e imágenes Cloudinary | `curso-node-restserver-5.0.0.zip` | Pendiente; Cloudinary necesita configuración externa |
+| Archivos locales e imágenes Cloudinary | `curso-node-restserver-5.0.0.zip` | Subida local probada; adaptador Cloudinary probado con proveedor controlado, falta servicio real |
 | Eventos, emisión y confirmaciones Socket.IO | `curso-node-socket-server-basico-main.zip` | Cubierto en turnos; se agregará una demostración independiente |
 | Cola, escritorios y pantalla pública | `node-curso-socket-colas-main.zip`, `Seccion-15.zip` | Implementado y probado |
 | Chat con salas, usuarios y mensajes privados | `socket-chat-1.0.0.zip` | Pendiente |
