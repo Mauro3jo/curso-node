@@ -1,0 +1,22 @@
+{
+  "name": "node-turnos",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Gestor de turnos en tiempo real con Node, Express y Socket.IO",
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "start": "node src/server.js",
+    "test": "node --test",
+    "check": "node --check src/server.js && node --check src/queue.js && node --check public/app.js"
+  },
+  "dependencies": {
+    "express": "5.3.0",
+    "socket.io": "4.8.4"
+  },
+  "devDependencies": {
+    "socket.io-client": "4.8.4"
+  }
+}
