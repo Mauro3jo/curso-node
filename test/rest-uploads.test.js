@@ -21,6 +21,7 @@ test('la subida local exige permisos y valida contenido y tamaño', { timeout: 6
   t.after(() => new Promise(resolve => server.close(resolve)));
   await new Promise(resolve => server.once('listening', resolve));
   const url = `http://127.0.0.1:${server.address().port}/api/uploads/usuarios/${user.id}`;
+  assert.equal((await fetch(url.replace('/usuarios/', '/toString/'))).status, 400);
   const png = Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+a5VQAAAAASUVORK5CYII=', 'base64');
   async function upload(bytes, token = auth.issue(user), name = 'test.png', type = 'image/png') {
     const form = new FormData(); form.append('archivo', new Blob([bytes], { type }), name);

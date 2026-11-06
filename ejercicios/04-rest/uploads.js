@@ -27,6 +27,7 @@ export function uploadRoutes({ User, Product }, auth, { directory = resolve('dat
   const routes = Router();
   const upload = multer({ storage: multer.memoryStorage(), limits: { fileSize: 2 * 1024 * 1024, files: 1, fields: 0 } }).single('archivo');
   async function find(req, _res, next) {
+    if (!['usuarios', 'productos'].includes(req.params.coleccion)) fail(400, 'Colección inválida');
     const Model = { usuarios: User, productos: Product }[req.params.coleccion];
     if (!Model) fail(400, 'Colección inválida');
     req.imageModel = await Model.findOne({ _id: id(req.params.id), estado: true }).select('+imgPublicId');

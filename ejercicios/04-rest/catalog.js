@@ -68,6 +68,7 @@ export function catalogRoutes({ User, Category, Product }, auth) {
   }
   routes.get('/buscar/:coleccion/:termino', async (req, res, next) => {
     const collection = req.params.coleccion;
+    if (!['usuarios', 'categorias', 'productos'].includes(collection)) fail(400, 'Colección inválida');
     const Model = { usuarios: User, categorias: Category, productos: Product }[collection];
     if (!Model) fail(400, 'Colección inválida');
     if (collection === 'usuarios') {

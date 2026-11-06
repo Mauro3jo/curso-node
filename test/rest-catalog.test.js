@@ -16,6 +16,7 @@ test('catálogo valida referencias, permisos, búsqueda literal y baja lógica',
   const auth = createAuth(models, randomBytes(32).toString('hex'));
   const token = auth.issue(user), adminToken = auth.issue(admin);
   const request = await serve(t, createRestApp({ routes: Router().use(catalogRoutes(models, auth)) }));
+  for (const collection of ['toString', '__proto__', 'desconocida']) assert.equal((await request(`/api/buscar/${collection}/x`)).status, 400);
   assert.equal((await request('/api/categorias', { method: 'POST', body: { nombre: 'Café' } })).status, 401);
   const category = await request('/api/categorias', { method: 'POST', token, body: { nombre: 'Café' } });
   assert.equal(category.status, 201);
