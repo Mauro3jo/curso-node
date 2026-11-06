@@ -7,7 +7,7 @@
       "uuid": "11.1.1"
     }
   },
-  "description": "Aplicaciones de consola, clima, catÃ¡logo, chat y turnos con Node.js",
+  "description": "Aplicaciones Node.js: consola, clima, API REST, sockets y TypeScript",
   "type": "module",
   "engines": {
     "node": ">=22"
