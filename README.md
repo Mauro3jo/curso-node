@@ -39,4 +39,4 @@ npm run check
 
 Los servidores escuchan solo en esta computadora. Son aplicaciones de práctica para una instancia, sin despliegue público.
 
-Referencia: materiales de **Node: De cero a experto**, de Fernando Herrera ([Klerith](https://github.com/Klerith)). El código se reconstruyó a partir de esos materiales. [Cobertura y pendientes](docs/alcance.md) · [Pruebas realizadas](docs/verificacion.md).
+Referencia: materiales de **Node: De cero a experto**, de Fernando Herrera ([Klerith](https://github.com/Klerith)). El código se reconstruyó a partir de esos materiales. [Cobertura y pendientes](docs/alcance.md) · [Pruebas realizadas](docs/verificacion.md) · [Certificado](certificado/node-udemy.pdf).
