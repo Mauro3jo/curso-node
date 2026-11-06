@@ -19,6 +19,9 @@ export function userRoutes({ User }, auth) {
       const isAdmin = req.user.rol === 'ADMIN_ROLE';
       if (!isAdmin && String(req.user._id) !== uid) fail(403, 'No podés modificar otro usuario');
       if (req.body?.rol !== undefined && !isAdmin) fail(403, 'Solo un administrador puede cambiar roles');
+      const existing = await User.findOne({ _id: uid, estado: true });
+      if (!existing) fail(404, 'Usuario no encontrado');
+      if (existing.google && (req.body?.correo !== undefined || req.body?.password !== undefined)) fail(400, 'La identidad de Google se administra desde Google');
       const updates = {};
       if (req.body?.nombre !== undefined) updates.nombre = text(req.body.nombre, 'Nombre');
       if (req.body?.correo !== undefined) updates.correo = email(req.body.correo);

@@ -8,8 +8,9 @@ export function createModels(connection) {
     rol: { type: String, enum: ['USER_ROLE', 'ADMIN_ROLE'], default: 'USER_ROLE' },
     estado: { type: Boolean, default: true },
     google: { type: Boolean, default: false },
+    googleId: { type: String, unique: true, sparse: true, select: false },
     img: String
-  }, { toJSON: { transform(_doc, ret) { ret.uid = String(ret._id); delete ret.password; delete ret._id; delete ret.__v; return ret; } } });
+  }, { toJSON: { transform(_doc, ret) { ret.uid = String(ret._id); delete ret.password; delete ret.googleId; delete ret._id; delete ret.__v; return ret; } } });
   const category = new Schema({
     nombre: { type: String, required: true, unique: true, uppercase: true, trim: true },
     estado: { type: Boolean, default: true },
