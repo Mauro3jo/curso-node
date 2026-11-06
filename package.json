@@ -7,13 +7,14 @@
       "uuid": "11.1.1"
     }
   },
-  "description": "Gestor de turnos en tiempo real con Node, Express y Socket.IO",
+  "description": "Aplicaciones de consola, clima, catálogo, chat y turnos con Node.js",
   "type": "module",
   "engines": {
     "node": ">=22"
   },
   "scripts": {
     "build": "tsc -p ejercicios/07-typescript",
+    "web": "node ejercicios/08-web/server.js",
     "typescript": "npm run build && node ejercicios/07-typescript/dist/server.js",
     "fundamentos": "node ejercicios/01-fundamentos/app.js",
     "tareas": "node ejercicios/02-tareas/cli.js",
@@ -23,14 +24,16 @@
     "sockets": "node ejercicios/05-sockets/server.js",
     "start": "node src/server.js",
     "test": "node --test",
-    "check": "node --check src/server.js && node --check src/queue.js && node --check public/app.js",
-    "chat": "node ejercicios/06-chat/server.js"
+    "check": "node scripts/check.js && npm run build",
+    "chat": "node ejercicios/06-chat/server.js",
+    "pretest": "npm run build"
   },
   "dependencies": {
     "bcryptjs": "3.0.3",
     "cloudinary": "2.11.0",
     "express": "5.3.0",
     "google-auth-library": "11.3.3",
+    "handlebars": "4.7.10",
     "jsonwebtoken": "9.0.3",
     "mongoose": "9.12.0",
     "multer": "2.5.0",

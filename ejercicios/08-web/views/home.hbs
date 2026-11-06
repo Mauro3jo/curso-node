@@ -1,0 +1,5 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{{titulo}}</title><link rel="stylesheet" href="/style.css"></head>
+<body><main><h1>{{titulo}}</h1><p>Hola, {{nombre}}. Estos son los productos del ejemplo.</p>
+<ul>{{#each productos}}<li><strong>{{nombre}}</strong><span>$ {{precio}}</span></li>{{/each}}</ul>
+{{> footer}}</main></body></html>

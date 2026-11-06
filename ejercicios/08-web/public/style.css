@@ -1,0 +1,5 @@
+body { font: 1rem/1.6 system-ui,sans-serif; margin: 0; background: #f4f5ef; color: #172b36; }
+main { max-width: 700px; margin: 3rem auto; padding: 1.5rem; }
+ul { padding: 0; list-style: none; }
+li { display: flex; justify-content: space-between; padding: 1rem; background: white; border-bottom: 1px solid #cbd4cb; }
+footer { margin-top: 3rem; color: #445d50; }

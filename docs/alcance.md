@@ -8,7 +8,7 @@ Inventario de los archivos locales revisados. No equivale al temario completo de
 | Menú, tareas, UUID y persistencia JSON | `node-console-app-todo-0.5.0.zip` | Implementado y probado |
 | Ciudad, coordenadas, clima e historial | `node-clima-app-main.zip` | Implementado y probado con respuestas controladas; falta consulta real con claves propias |
 | Express, rutas HTTP y estáticos | `curso-node-restserver-1.0.0.zip` | Servidor JSON, salud y errores HTTP probados; estáticos cubiertos en turnos |
-| MongoDB, usuarios, validación y contraseñas | `curso-node-restserver-2.1.0.zip` | Pendiente |
+| MongoDB, usuarios, validación y contraseñas | `curso-node-restserver-2.1.0.zip` | Registro, unicidad y bcrypt probados contra MongoDB temporal |
 | Login, JWT y roles | `curso-node-restserver-2.2.0.zip` | Implementado y probado: tokens, permisos, edición y baja lógica |
 | Categorías, productos y búsquedas | `curso-node-restserver-4.0.0.zip` | Implementado y probado contra MongoDB temporal |
 | Inicio de sesión con Google | `curso-node-restserver-4.0.0.zip` | Adaptador implementado y probado con respuestas controladas; falta login real con cliente propio |
@@ -19,6 +19,7 @@ Inventario de los archivos locales revisados. No equivale al temario completo de
 | Chat autenticado, usuarios activos y últimos mensajes | `curso-node-socket-chat-main.zip` | Implementado y probado con JWT, identidad de MongoDB y revocación |
 | TypeScript, Sequelize, MySQL y CRUD de usuarios | `ts-rest-server-main.zip` | Compilación estricta y CRUD probados contra MariaDB temporal aislado |
 | Plantillas de interfaz | `HTML-Chat.zip`, `templated-roadtrip.zip` | Recursos de referencia; no se atribuyen como implementación propia |
+| Express, plantillas y parciales | Referencias a `hbs` y Handlebars proporcionadas junto al material | Catálogo propio implementado y probado con Handlebars directo; sin despliegue externo |
 | Builds estáticos de Angular/React | `Angular-React-Prod-Builds.zip` | Material compilado para servir; no hay proyecto fuente que reconstruir desde este ZIP |
 | Códigos HTTP, imágenes y utilidad de scroll | PDF, JPG y `scrollBottom.js` | Referencias y recursos auxiliares |
 | Certificado | `UC-cd139af3-7c52-4254-b26a-4b4e41c221a7.pdf` | Sin publicar; se revisará al terminar el código |
