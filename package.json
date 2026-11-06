@@ -7,7 +7,7 @@
       "uuid": "11.1.1"
     }
   },
-  "description": "Aplicaciones de consola, clima, catálogo, chat y turnos con Node.js",
+  "description": "Aplicaciones de consola, clima, catÃ¡logo, chat y turnos con Node.js",
   "type": "module",
   "engines": {
     "node": ">=22"
@@ -26,7 +26,9 @@
     "test": "node --test",
     "check": "node scripts/check.js && npm run build",
     "chat": "node ejercicios/06-chat/server.js",
-    "pretest": "npm run build"
+    "pretest": "npm run build",
+    "tablas": "node ejercicios/09-tablas/cli.js",
+    "asincronia": "node ejercicios/01-fundamentos/async.js"
   },
   "dependencies": {
     "bcryptjs": "3.0.3",
@@ -39,7 +41,8 @@
     "multer": "2.5.0",
     "mysql2": "3.24.6",
     "sequelize": "6.37.8",
-    "socket.io": "4.8.4"
+    "socket.io": "4.8.4",
+    "yargs": "18.2.0"
   },
   "devDependencies": {
     "@types/express": "5.0.6",

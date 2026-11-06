@@ -5,6 +5,8 @@ Inventario de los archivos locales revisados. No equivale al temario completo de
 | Bloque identificable | Material local | Estado |
 | --- | --- | --- |
 | Saludos, funciones y event loop | `node-hola-mundo-0.1.0.zip` | Implementado y probado |
+| Callbacks, promesas y async/await | Enlace a `Klerith/node-blocking-vs-non-blocking` proporcionado con el material | Ejemplo propio implementado y probado; sin asumir reproducción exacta |
+| Argumentos y escritura de archivos | Referencia a yargs proporcionada con el material | CLI de tablas implementado y probado; no había ZIP del original |
 | Menú, tareas, UUID y persistencia JSON | `node-console-app-todo-0.5.0.zip` | Implementado y probado |
 | Ciudad, coordenadas, clima e historial | `node-clima-app-main.zip` | Implementado y probado con respuestas controladas; falta consulta real con claves propias |
 | Express, rutas HTTP y estáticos | `curso-node-restserver-1.0.0.zip` | Servidor JSON, salud y errores HTTP probados; estáticos cubiertos en turnos |
@@ -22,6 +24,7 @@ Inventario de los archivos locales revisados. No equivale al temario completo de
 | Express, plantillas y parciales | Referencias a `hbs` y Handlebars proporcionadas junto al material | Catálogo propio implementado y probado con Handlebars directo; sin despliegue externo |
 | Builds estáticos de Angular/React | `Angular-React-Prod-Builds.zip` | Material compilado para servir; no hay proyecto fuente que reconstruir desde este ZIP |
 | Códigos HTTP, imágenes y utilidad de scroll | PDF, JPG y `scrollBottom.js` | Referencias y recursos auxiliares |
+| Lectura de payload JWT e instalaciones | Gists `44ee5349fa13699d9c5f1e82b3be040e` y `177c153db77e566cb763f79e65d248bf` | Revisados; la autenticación verifica firma, audiencia y expiración con JWT, no usa la decodificación del navegador como permiso |
 | Certificado | `UC-cd139af3-7c52-4254-b26a-4b4e41c221a7.pdf` | Sin publicar; se revisará al terminar el código |
 
 ## Plan de ejecución
