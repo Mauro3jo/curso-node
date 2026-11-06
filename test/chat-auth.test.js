@@ -1,0 +1,30 @@
+import { test } from 'node:test';
+import assert from 'node:assert/strict';
+import { once } from 'node:events';
+import { randomBytes } from 'node:crypto';
+import { io as connect } from 'socket.io-client';
+import { mongoDatabase } from '../test-support/mongo.js';
+import { createModels } from '../ejercicios/04-rest/models.js';
+import { createAuth } from '../ejercicios/04-rest/auth.js';
+import { createChatServer } from '../ejercicios/06-chat/server.js';
+
+test('el chat JWT rechaza tokens y usa la identidad de MongoDB al enviar', { timeout: 60000 }, async t => {
+  const models = createModels(await mongoDatabase(t));
+  const user = await models.User.create({ nombre: 'Identidad real', correo: 'chat@example.test', password: 'fixture' });
+  const auth = createAuth(models, randomBytes(32).toString('hex'));
+  const app = createChatServer({ resolveUser: auth.readToken });
+  const clients = [];
+  t.after(async () => { clients.forEach(c => c.disconnect()); await new Promise(resolve => app.io.close(resolve)); });
+  app.server.listen(0, '127.0.0.1'); await once(app.server, 'listening');
+  const url = `http://127.0.0.1:${app.server.address().port}`;
+  const rejected = connect(url, { auth: { token: 'invalido' }, reconnection: false }); clients.push(rejected);
+  const outcome = await Promise.race([once(rejected, 'connect_error').then(([error]) => error.message), once(rejected, 'connect').then(() => 'conectado sin autenticación')]);
+  assert.match(outcome, /sesión/i);
+  const a = connect(url, { auth: { token: auth.issue(user) } }); clients.push(a); await once(a, 'connect');
+  const join = await a.timeout(2000).emitWithAck('entrar-chat', { nombre: 'identidad falsa', sala: 'node' });
+  assert.equal(join.usuario.nombre, 'Identidad real');
+  const result = await a.timeout(2000).emitWithAck('enviar-mensaje', { mensaje: 'Prueba' });
+  assert.equal(result.mensaje.nombre, 'Identidad real');
+  await models.User.findByIdAndUpdate(user.id, { estado: false });
+  assert.equal((await a.timeout(2000).emitWithAck('enviar-mensaje', { mensaje: 'sesión revocada' })).ok, false);
+});

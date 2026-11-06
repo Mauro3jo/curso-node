@@ -1,6 +1,34 @@
 const $ = id => document.getElementById(id);
 const socket = io({ autoConnect: false });
 let joined = false, busy = false, joinData;
+let authenticated = false;
+$('join').hidden = true;
+fetch('config').then(response => response.json()).then(config => {
+  authenticated = config.authenticated;
+  $('account').hidden = !authenticated;
+  $('join').hidden = authenticated;
+  $('name-label').hidden = authenticated;
+  $('name').required = !authenticated;
+  $('status').textContent = authenticated ? 'Iniciá sesión o creá una cuenta.' : 'Elegí tu nombre y una sala.';
+}).catch(() => { $('status').textContent = 'No se pudo cargar la configuración.'; });
+async function login(register = false) {
+  const credentials = { correo: $('email').value, password: $('password').value };
+  try {
+    if (register) {
+      const created = await fetch('/api/usuarios', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ...credentials, nombre: $('account-name').value }) });
+      if (!created.ok) throw new Error((await created.json()).msg);
+    }
+    const response = await fetch('/api/auth/login', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(credentials) });
+    const result = await response.json();
+    if (!response.ok) throw new Error(result.msg);
+    socket.auth = { token: result.token };
+    $('password').value = '';
+    $('account').hidden = true; $('join').hidden = false;
+    $('status').textContent = `Sesión de ${result.usuario.nombre}. Elegí una sala.`;
+  } catch (error) { $('status').textContent = error.message; }
+}
+$('account').addEventListener('submit', event => { event.preventDefault(); login(); });
+$('register').addEventListener('click', () => login(true));
 function controls() { document.querySelector('#send button').disabled = !joined || !socket.connected || busy; }
 function showMessage(message) {
   const row = document.createElement('li');
@@ -34,7 +62,7 @@ socket.on('usuarios', people => {
 $('join').addEventListener('submit', event => {
   event.preventDefault();
   joinData = { nombre: $('name').value.trim(), sala: $('room').value.trim() };
-  if (joinData.nombre && joinData.sala) socket.connect();
+  if ((authenticated || joinData.nombre) && joinData.sala) socket.connect();
 });
 $('send').addEventListener('submit', async event => {
   event.preventDefault();

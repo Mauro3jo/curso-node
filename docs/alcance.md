@@ -16,7 +16,7 @@ Inventario de los archivos locales revisados. No equivale al temario completo de
 | Eventos, emisión y confirmaciones Socket.IO | `curso-node-socket-server-basico-main.zip` | Demostración independiente implementada y probada |
 | Cola, escritorios y pantalla pública | `node-curso-socket-colas-main.zip`, `Seccion-15.zip` | Implementado y probado |
 | Chat con salas, usuarios y mensajes privados | `socket-chat-1.0.0.zip` | Implementado y probado con múltiples clientes |
-| Chat autenticado, usuarios activos y últimos mensajes | `curso-node-socket-chat-main.zip` | Pendiente |
+| Chat autenticado, usuarios activos y últimos mensajes | `curso-node-socket-chat-main.zip` | Implementado y probado con JWT, identidad de MongoDB y revocación |
 | TypeScript, Sequelize, MySQL y CRUD de usuarios | `ts-rest-server-main.zip` | Pendiente |
 | Plantillas de interfaz | `HTML-Chat.zip`, `templated-roadtrip.zip` | Recursos de referencia; no se atribuyen como implementación propia |
 | Builds estáticos de Angular/React | `Angular-React-Prod-Builds.zip` | Material compilado para servir; no hay proyecto fuente que reconstruir desde este ZIP |

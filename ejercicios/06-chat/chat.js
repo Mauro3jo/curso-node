@@ -1,26 +1,39 @@
 import { randomUUID } from 'node:crypto';
 
-export function attachChat(io) {
+export function attachChat(io, { resolveUser } = {}) {
   const people = new Map(), history = new Map();
   const users = room => [...people.values()].filter(p => p.sala === room);
   const announce = room => io.to(`sala:${room}`).emit('usuarios', users(room));
   const valid = (value, max) => typeof value === 'string' && value.trim().length > 0 && value.trim().length <= max;
+  if (resolveUser) io.use(async (socket, next) => {
+    try { await resolveUser(socket.handshake.auth?.token); next(); }
+    catch { next(new Error('Sesión inválida')); }
+  });
   io.on('connection', socket => {
     socket.on('entrar-chat', async (payload, ack) => {
       if (typeof ack !== 'function') return;
       if (people.has(socket.id)) return ack({ ok: false, msg: 'Ya ingresaste a una sala' });
-      if (!valid(payload?.nombre, 80) || !valid(payload?.sala, 40)) return ack({ ok: false, msg: 'Nombre y sala son obligatorios' });
-      const nombre = payload.nombre.trim(), sala = payload.sala.trim();
-      if (users(sala).some(p => p.nombre.toLowerCase() === nombre.toLowerCase())) return ack({ ok: false, msg: 'Ese nombre ya está en la sala' });
-      const person = { id: socket.id, nombre, sala };
+      let identity;
+      try { identity = resolveUser ? await resolveUser(socket.handshake.auth?.token) : null; }
+      catch { return ack({ ok: false, msg: 'Sesión inválida' }); }
+      if (!socket.connected || people.has(socket.id)) return ack({ ok: false, msg: 'La conexión ya cambió de estado' });
+      const name = identity ? identity.nombre : payload?.nombre;
+      if (!valid(name, 100) || !valid(payload?.sala, 40)) return ack({ ok: false, msg: 'Nombre y sala son obligatorios' });
+      const nombre = name.trim(), sala = payload.sala.trim();
+      if (!resolveUser && users(sala).some(p => p.nombre.toLowerCase() === nombre.toLowerCase())) return ack({ ok: false, msg: 'Ese nombre ya está en la sala' });
+      const person = { id: socket.id, uid: identity ? String(identity._id) : socket.id, nombre, sala };
       people.set(socket.id, person);
       await socket.join(`sala:${sala}`);
       socket.emit('historial', history.get(sala) || []);
       announce(sala);
       ack({ ok: true, usuario: person });
     });
-    socket.on('enviar-mensaje', (payload, ack) => {
+    socket.on('enviar-mensaje', async (payload, ack) => {
       if (typeof ack !== 'function') return;
+      if (resolveUser) {
+        try { await resolveUser(socket.handshake.auth?.token); }
+        catch { return ack({ ok: false, msg: 'Sesión inválida' }); }
+      }
       const person = people.get(socket.id);
       if (!person) return ack({ ok: false, msg: 'Ingresá a una sala antes de enviar mensajes' });
       if (!valid(payload?.mensaje, 1000)) return ack({ ok: false, msg: 'El mensaje debe tener de 1 a 1000 caracteres' });

@@ -5,12 +5,13 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 import { resolve } from 'node:path';
 import { attachChat } from './chat.js';
 
-export function createChatServer() {
+export function createChatServer({ resolveUser } = {}) {
   const app = express();
   const server = createServer(app);
   const io = new Server(server, { maxHttpBufferSize: 8192, allowRequest: (req, done) => done(null, !req.headers.origin || req.headers.origin === `http://${req.headers.host}`) });
   app.use(express.static(fileURLToPath(new URL('public/', import.meta.url))));
-  attachChat(io);
+  app.get('/config', (_req, res) => res.json({ authenticated: !!resolveUser }));
+  attachChat(io, { resolveUser });
   return { server, io };
 }
 
