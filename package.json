@@ -2,6 +2,11 @@
   "name": "node-turnos",
   "version": "1.0.0",
   "private": true,
+  "overrides": {
+    "sequelize": {
+      "uuid": "11.1.1"
+    }
+  },
   "description": "Gestor de turnos en tiempo real con Node, Express y Socket.IO",
   "type": "module",
   "engines": {
@@ -12,6 +17,8 @@
     "tareas": "node ejercicios/02-tareas/cli.js",
     "clima": "node ejercicios/03-clima/cli.js",
     "rest": "node ejercicios/04-rest/server.js",
+    "rest:admin": "node ejercicios/04-rest/admin.js",
+    "sockets": "node ejercicios/05-sockets/server.js",
     "start": "node src/server.js",
     "test": "node --test",
     "check": "node --check src/server.js && node --check src/queue.js && node --check public/app.js"
@@ -24,10 +31,15 @@
     "jsonwebtoken": "9.0.3",
     "mongoose": "9.12.0",
     "multer": "2.5.0",
+    "mysql2": "3.24.6",
+    "sequelize": "6.37.8",
     "socket.io": "4.8.4"
   },
   "devDependencies": {
+    "@types/express": "5.0.6",
+    "@types/node": "22.20.5",
     "mongodb-memory-server": "11.3.0",
-    "socket.io-client": "4.8.4"
+    "socket.io-client": "4.8.4",
+    "typescript": "7.0.2"
   }
 }
