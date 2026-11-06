@@ -1,0 +1,29 @@
+:root { color-scheme: light; font-family: system-ui, sans-serif; color: #172b36; background: #f4f5ef; }
+* { box-sizing: border-box; }
+body { margin: 0; }
+[hidden] { display: none !important; }
+header { display: flex; justify-content: space-between; gap: 1rem; align-items: center; padding: 1.25rem clamp(1rem, 5vw, 5rem); border-bottom: 1px solid #cbd4cb; }
+a { color: #165f50; }
+.brand { font-size: 1.6rem; font-weight: 800; text-decoration: none; }
+#connection { font-size: .9rem; }
+main { max-width: 1120px; margin: auto; padding: 3rem 1.5rem; }
+h1 { font-size: clamp(2rem, 5vw, 3.5rem); line-height: 1.1; letter-spacing: -.04em; max-width: 760px; }
+h2 { margin-top: 0; }
+p { line-height: 1.6; }
+.eyebrow { color: #34685b; letter-spacing: .16em; font-size: .8rem; font-weight: 700; }
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 1rem; margin: 2rem 0; }
+.card { padding: 1.8rem; border: 1px solid #cbd4cb; border-radius: 12px; background: white; text-decoration: none; color: inherit; }
+a.card:hover { border-color: #165f50; background: #edf4ef; }
+.card span { color: #165f50; font-weight: 600; }
+.ticket { font-size: clamp(4rem, 12vw, 7rem); font-weight: 750; color: #165f50; margin: 1rem 0; }
+button { background: #165f50; color: white; border: 0; border-radius: 8px; font: inherit; font-weight: 650; padding: 1rem 1.5rem; cursor: pointer; }
+button:hover { background: #104a3e; }
+button:disabled { background: #65756e; cursor: default; }
+input { font: inherit; border: 1px solid #768b80; border-radius: 8px; padding: 1rem; min-width: 0; }
+label { display: block; margin-bottom: .75rem; }
+.form-row { display: flex; gap: .75rem; flex-wrap: wrap; }
+:focus-visible { outline: 3px solid #b15a19; outline-offset: 4px; }
+.call-number { font-size: 3rem; font-weight: 750; display: block; }
+#calls .card:first-child { background: #165f50; color: white; }
+#message { min-height: 1.6em; font-weight: 600; }
+footer { margin-top: 3rem; padding-top: 1.25rem; border-top: 1px solid #cbd4cb; color: #445d50; }

@@ -60,3 +60,18 @@ test('no expone referencias mutables del estado', t => {
   queue.snapshot().ultimos4[0].numero = 888;
   assert.equal(queue.snapshot().ultimos4[0].numero, 1);
 });
+
+test('rechaza un JSON válido con una estructura incorrecta', t => {
+  const { file } = setup(t);
+  writeFileSync(file, '{}');
+  assert.throws(() => new Queue(file), /formato inválido/);
+  assert.equal(readFileSync(file, 'utf8'), '{}');
+});
+
+test('un fallo al guardar no confirma ni consume un número', t => {
+  const { file } = setup(t);
+  const queue = new Queue(join(file, 'queue.json'));
+  writeFileSync(file, 'bloqueo');
+  assert.throws(() => queue.next());
+  assert.equal(queue.snapshot().ultimo, 0);
+});

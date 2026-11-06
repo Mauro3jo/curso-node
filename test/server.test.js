@@ -36,6 +36,21 @@ test('HTTP expone salud y devuelve 404 para rutas inexistentes', { timeout: 5000
   assert.equal((await fetch(`${url}/no-existe`)).status, 404);
 });
 
+test('sirve las tres vistas y sus recursos locales sin CDN', { timeout: 5000 }, async t => {
+  const { url } = await setup(t);
+  for (const view of ['emitir', 'escritorio', 'pantalla']) {
+    const response = await fetch(`${url}/?vista=${view}`);
+    assert.equal(response.status, 200);
+    const html = await response.text();
+    assert.match(html, /lang="es"/);
+    assert.match(html, /\/socket.io\/socket.io.js/);
+    assert.doesNotMatch(html, /https:\/\/cdn/);
+  }
+  for (const path of ['/app.js', '/style.css', '/socket.io/socket.io.js']) {
+    assert.equal((await fetch(url + path)).status, 200);
+  }
+});
+
 test('dos clientes generan y atienden turnos sin duplicar asignaciones', { timeout: 5000 }, async t => {
   const { client } = await setup(t);
   const a = await client(), b = await client();

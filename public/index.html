@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Turnos</title>
+  <link rel="stylesheet" href="/style.css">
+  <script src="/socket.io/socket.io.js" defer></script>
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <header>
+    <a class="brand" href="/">Turnos</a>
+    <span id="connection" role="status">Conectando…</span>
+  </header>
+  <main>
+    <section id="home">
+      <p class="eyebrow">ATENCIÓN EN ORDEN</p>
+      <h1>Cada turno, en su lugar.</h1>
+      <p>Generá números, llamá al siguiente y seguí la atención en tiempo real.</p>
+      <div class="cards">
+        <a class="card" href="/?vista=emitir"><h2>Sacar turno</h2><p>Emitir un nuevo número.</p><span>Abrir →</span></a>
+        <a class="card" href="/?vista=escritorio"><h2>Escritorio</h2><p>Atender la cola de espera.</p><span>Abrir →</span></a>
+        <a class="card" href="/?vista=pantalla"><h2>Pantalla pública</h2><p>Ver los últimos llamados.</p><span>Abrir →</span></a>
+      </div>
+    </section>
+
+    <section id="issue" hidden>
+      <p class="eyebrow">NUEVO TURNO</p>
+      <h1>Tu número de atención</h1>
+      <p>Esperá a que llamen tu número en la pantalla pública.</p>
+      <div class="ticket" id="issued" aria-live="polite">—</div>
+      <p>Último emitido: <span id="last">0</span></p>
+      <button id="next" disabled>Generar turno</button>
+    </section>
+
+    <section id="desk" hidden>
+      <p class="eyebrow">ESCRITORIO</p>
+      <h1>Atender turnos</h1>
+      <form id="desk-form">
+        <label for="desk-name">Nombre o número del escritorio</label>
+        <div class="form-row">
+          <input id="desk-name" name="escritorio" maxlength="40" required placeholder="Por ejemplo, Caja 1">
+          <button type="submit">Ingresar</button>
+        </div>
+      </form>
+      <div id="desk-active" hidden>
+        <h2 id="desk-label"></h2>
+        <p>Último llamado en este escritorio</p>
+        <div class="ticket" id="attending" aria-live="polite">—</div>
+        <button id="attend" disabled>Atender siguiente</button>
+        <p><a href="/?vista=escritorio">Cambiar escritorio</a></p>
+      </div>
+    </section>
+
+    <section id="display" hidden>
+      <p class="eyebrow">PANTALLA PÚBLICA</p>
+      <h1>Últimos llamados</h1>
+      <div id="calls" class="cards" aria-live="polite"><p>Todavía no hay llamados.</p></div>
+    </section>
+
+    <p id="message" role="status" aria-live="polite"></p>
+    <footer>En espera: <strong id="pending">—</strong> · Los números se reinician cada día.</footer>
+  </main>
+</body>
+</html>
