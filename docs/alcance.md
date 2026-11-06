@@ -9,7 +9,7 @@ Inventario de los archivos locales revisados. No equivale al temario completo de
 | Ciudad, coordenadas, clima e historial | `node-clima-app-main.zip` | Implementado y probado con respuestas controladas; falta consulta real con claves propias |
 | Express, rutas HTTP y estáticos | `curso-node-restserver-1.0.0.zip` | Servidor JSON, salud y errores HTTP probados; estáticos cubiertos en turnos |
 | MongoDB, usuarios, validación y contraseñas | `curso-node-restserver-2.1.0.zip` | Pendiente |
-| Login, JWT y roles | `curso-node-restserver-2.2.0.zip` | Pendiente |
+| Login, JWT y roles | `curso-node-restserver-2.2.0.zip` | Implementado y probado: tokens, permisos, edición y baja lógica |
 | Categorías, productos y búsquedas | `curso-node-restserver-4.0.0.zip` | Pendiente |
 | Inicio de sesión con Google | `curso-node-restserver-4.0.0.zip` | Pendiente; necesita configuración externa |
 | Archivos locales e imágenes Cloudinary | `curso-node-restserver-5.0.0.zip` | Pendiente; Cloudinary necesita configuración externa |

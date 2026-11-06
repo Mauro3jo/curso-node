@@ -1,0 +1,35 @@
+import { test } from 'node:test';
+import assert from 'node:assert/strict';
+import { randomBytes } from 'node:crypto';
+import { Router } from 'express';
+import { mongoDatabase, serve } from '../test-support/mongo.js';
+import { createModels } from '../ejercicios/04-rest/models.js';
+import { userRoutes } from '../ejercicios/04-rest/users.js';
+import { createAuth } from '../ejercicios/04-rest/auth.js';
+import { createRestApp } from '../ejercicios/04-rest/app.js';
+
+test('login y permisos protegen usuarios, roles y contraseñas', { timeout: 60000 }, async t => {
+  const models = createModels(await mongoDatabase(t));
+  const auth = createAuth(models, randomBytes(32).toString('hex'));
+  const routes = Router().use(auth.routes).use(userRoutes(models, auth));
+  const request = await serve(t, createRestApp({ routes }));
+  const input = { nombre: 'Usuario', correo: 'user@example.test', password: 'clave-prueba-123' };
+  const created = await request('/api/usuarios', { method: 'POST', body: input });
+  const uid = created.data.usuario.uid;
+  assert.equal((await request('/api/auth/login', { method: 'POST', body: { ...input, password: 'incorrecta' } })).status, 401);
+  const { data: { token } } = await request('/api/auth/login', { method: 'POST', body: input });
+  assert.equal((await request('/api/usuarios')).status, 401);
+  assert.equal((await request('/api/usuarios', { token })).status, 403);
+  assert.equal((await request('/api/auth', { token: `${token}roto` })).status, 401);
+  assert.equal((await request(`/api/usuarios/${uid}`, { method: 'PUT', token, body: { rol: 'ADMIN_ROLE' } })).status, 403);
+  const other = await request('/api/usuarios', { method: 'POST', body: { ...input, correo: 'other@example.test' } });
+  assert.equal((await request(`/api/usuarios/${other.data.usuario.uid}`, { method: 'PUT', token, body: { nombre: 'cambio' } })).status, 403);
+  assert.equal((await request(`/api/usuarios/${uid}`, { method: 'PUT', token, body: { nombre: 'Nuevo', password: 'nueva-clave-123' } })).status, 200);
+  assert.equal((await request('/api/auth/login', { method: 'POST', body: input })).status, 401);
+  await models.User.findByIdAndUpdate(uid, { rol: 'ADMIN_ROLE' });
+  assert.equal((await request('/api/usuarios', { token })).status, 200);
+  assert.equal((await request(`/api/usuarios/${other.data.usuario.uid}`, { method: 'DELETE', token })).status, 200);
+  assert.equal((await request('/api/auth/login', { method: 'POST', body: { ...input, correo: 'other@example.test' } })).status, 401);
+  await models.User.findByIdAndUpdate(uid, { estado: false });
+  assert.equal((await request('/api/auth', { token })).status, 401);
+});
