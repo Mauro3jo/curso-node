@@ -10,5 +10,24 @@ export function createModels(connection) {
     google: { type: Boolean, default: false },
     img: String
   }, { toJSON: { transform(_doc, ret) { ret.uid = String(ret._id); delete ret.password; delete ret._id; delete ret.__v; return ret; } } });
-  return { User: connection.models.Usuario || connection.model('Usuario', schema) };
+  const category = new Schema({
+    nombre: { type: String, required: true, unique: true, uppercase: true, trim: true },
+    estado: { type: Boolean, default: true },
+    usuario: { type: Schema.Types.ObjectId, ref: 'Usuario', required: true }
+  });
+  const product = new Schema({
+    nombre: { type: String, required: true, unique: true, uppercase: true, trim: true },
+    precio: { type: Number, default: 0, min: 0 },
+    descripcion: { type: String, maxlength: 1000, default: '' },
+    disponible: { type: Boolean, default: true },
+    categoria: { type: Schema.Types.ObjectId, ref: 'Categoria', required: true },
+    usuario: { type: Schema.Types.ObjectId, ref: 'Usuario', required: true },
+    estado: { type: Boolean, default: true },
+    img: String
+  });
+  return {
+    User: connection.models.Usuario || connection.model('Usuario', schema),
+    Category: connection.models.Categoria || connection.model('Categoria', category),
+    Product: connection.models.Producto || connection.model('Producto', product)
+  };
 }
