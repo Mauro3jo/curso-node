@@ -13,6 +13,8 @@
     "node": ">=22"
   },
   "scripts": {
+    "build": "tsc -p ejercicios/07-typescript",
+    "typescript": "npm run build && node ejercicios/07-typescript/dist/server.js",
     "fundamentos": "node ejercicios/01-fundamentos/app.js",
     "tareas": "node ejercicios/02-tareas/cli.js",
     "clima": "node ejercicios/03-clima/cli.js",
