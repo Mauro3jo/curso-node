@@ -10,6 +10,7 @@
   "scripts": {
     "fundamentos": "node ejercicios/01-fundamentos/app.js",
     "tareas": "node ejercicios/02-tareas/cli.js",
+    "clima": "node ejercicios/03-clima/cli.js",
     "start": "node src/server.js",
     "test": "node --test",
     "check": "node --check src/server.js && node --check src/queue.js && node --check public/app.js"
